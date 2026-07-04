@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Carte Interactive</title>
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"/>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:sans-serif;display:flex;height:100vh}
+#map{flex:1;height:100vh}
+#sidebar{width:380px;background:#1a1a2e;color:#eee;padding:10px;overflow-y:auto}
+h2{font-size:14px;color:#fff;text-align:center}
+</style>
+</head>
+<body>
+<div id="map"></div>
+<div id="sidebar"><h2>TEST</h2><div id="status">Loading...</div></div>
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+<script>
+document.getElementById('status').textContent = 'Leaflet loaded: ' + (typeof L !== 'undefined');
+try {
+    var map = L.map('map', {center:[46.7,2.2],zoom:6});
+    L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png', {maxZoom:19}).addTo(map);
+    document.getElementById('status').textContent = 'MAP OK!';
+} catch(e) {
+    document.getElementById('status').textContent = 'ERROR: ' + e.message;
+}
+</script>
+</body>
+</html>
