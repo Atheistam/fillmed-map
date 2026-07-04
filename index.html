@@ -67,6 +67,30 @@ function copyLink() {
     }).catch(function() { prompt('Copiez ce lien :', url); });
 }
 
+function removeAgent(name) {
+    if (!confirm('Supprimer ' + name + ' ?')) return;
+    var idx = AGENTS.findIndex(function(a) { return a.name === name; });
+    if (idx >= 0) AGENTS.splice(idx, 1);
+    delete AGENT_COLORS[name];
+    GEOJSON_DATA.features.forEach(function(f) { if (f.properties.agent === name) f.properties.agent = null; });
+    if (selectedAgent === name) selectedAgent = null;
+    updateSidebar();
+}
+
+function renameAgent(oldName) {
+    var nn = prompt('Nouveau nom:', oldName);
+    if (!nn || nn === oldName) return;
+    var agent = AGENTS.find(function(a) { return a.name === oldName; });
+    if (!agent) return;
+    var c = AGENT_COLORS[oldName];
+    delete AGENT_COLORS[oldName];
+    agent.name = nn;
+    AGENT_COLORS[nn] = c;
+    GEOJSON_DATA.features.forEach(function(f) { if (f.properties.agent === oldName) f.properties.agent = nn; });
+    if (selectedAgent === oldName) selectedAgent = nn;
+    updateSidebar();
+}
+
 function resetMap() {
     if (!confirm('Reinitialiser ?')) return;
     selectedAgent = null;
@@ -203,6 +227,30 @@ function copyLink() {
     }).catch(function() { prompt('Copiez ce lien :', url); });
 }
 
+function removeAgent(name) {
+    if (!confirm('Supprimer ' + name + ' ?')) return;
+    var idx = AGENTS.findIndex(function(a) { return a.name === name; });
+    if (idx >= 0) AGENTS.splice(idx, 1);
+    delete AGENT_COLORS[name];
+    GEOJSON_DATA.features.forEach(function(f) { if (f.properties.agent === name) f.properties.agent = null; });
+    if (selectedAgent === name) selectedAgent = null;
+    updateSidebar();
+}
+
+function renameAgent(oldName) {
+    var nn = prompt('Nouveau nom:', oldName);
+    if (!nn || nn === oldName) return;
+    var agent = AGENTS.find(function(a) { return a.name === oldName; });
+    if (!agent) return;
+    var c = AGENT_COLORS[oldName];
+    delete AGENT_COLORS[oldName];
+    agent.name = nn;
+    AGENT_COLORS[nn] = c;
+    GEOJSON_DATA.features.forEach(function(f) { if (f.properties.agent === oldName) f.properties.agent = nn; });
+    if (selectedAgent === oldName) selectedAgent = nn;
+    updateSidebar();
+}
+
 function resetMap() {
     if (!confirm('Reinitialiser la carte ?')) return;
     selectedAgent = null;
@@ -307,6 +355,30 @@ function copyLink() {
         t.style.opacity = '1';
         setTimeout(function() { t.style.opacity = '0'; }, 2000);
     }).catch(function() { prompt('Copiez ce lien :', url); });
+}
+
+function removeAgent(name) {
+    if (!confirm('Supprimer ' + name + ' ?')) return;
+    var idx = AGENTS.findIndex(function(a) { return a.name === name; });
+    if (idx >= 0) AGENTS.splice(idx, 1);
+    delete AGENT_COLORS[name];
+    GEOJSON_DATA.features.forEach(function(f) { if (f.properties.agent === name) f.properties.agent = null; });
+    if (selectedAgent === name) selectedAgent = null;
+    updateSidebar();
+}
+
+function renameAgent(oldName) {
+    var nn = prompt('Nouveau nom:', oldName);
+    if (!nn || nn === oldName) return;
+    var agent = AGENTS.find(function(a) { return a.name === oldName; });
+    if (!agent) return;
+    var c = AGENT_COLORS[oldName];
+    delete AGENT_COLORS[oldName];
+    agent.name = nn;
+    AGENT_COLORS[nn] = c;
+    GEOJSON_DATA.features.forEach(function(f) { if (f.properties.agent === oldName) f.properties.agent = nn; });
+    if (selectedAgent === oldName) selectedAgent = nn;
+    updateSidebar();
 }
 
 function resetMap() {
