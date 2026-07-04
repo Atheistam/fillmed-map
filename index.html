@@ -42,9 +42,32 @@ body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; d
     </div>
     <div class="legend">Cliquez sur un departement pour changer d'agent<br>ou selectionnez un agent ci-dessus puis cliquez</div>
 </div>
-<div id="toast" style="position:fixed;bottom:20px;left:50%;transform:translateX(-50%);background:#27ae60;color:#fff;padding:8px 20px;border-radius:20px;font-size:12px;font-weight:600;z-index:9999;opacity:0;transition:opacity .3s;"></div>
+IGNORE style="position:fixed;bottom:20px;left:50%;transform:translateX(-50%);background:#27ae60;color:#fff;padding:8px 20px;border-radius:20px;font-size:12px;font-weight:600;z-index:9999;opacity:0;transition:opacity .3s;"><div id="toast" style="position:fixed;bottom:20px;left:50%;transform:translateX(-50%);background:#27ae60;color:#fff;padding:8px 20px;border-radius:20px;font-size:12px;font-weight:600;z-index:9999;opacity:0;transition:opacity .3s;"></div>
+</div>
 
-<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js">function resetMap() {
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js">function addAgent() {
+    const colors = ['#E6194B','#3CB44B','#FFE119','#4363D8','#F58231','#911EB4','#46F0F0','#F032E6','#BCF60C','#FABEBE','#008080','#E6BEFF','#AAFFC3','#FFD8B1','#808000','#000080','#DCBEFF','#A9A9A9','#800000','#469990'];
+    const num = AGENTS.length + 1;
+    const na = { name: 'Agent ' + num, color: colors[(num-1) % colors.length], potential: 0, depts: [] };
+    AGENTS.push(na);
+    AGENT_COLORS[na.name] = na.color;
+    updateSidebar();
+}
+
+function copyLink() {
+    var d = {};
+    GEOJSON_DATA.features.forEach(function(f) { d[f.properties.code] = f.properties.agent; });
+    var st = { a: AGENTS, d: d };
+    var url = window.location.origin + window.location.pathname + '#s=' + btoa(JSON.stringify(st));
+    var t = document.getElementById('toast');
+    navigator.clipboard.writeText(url).then(function() {
+        t.textContent = 'Lien copie !';
+        t.style.opacity = '1';
+        setTimeout(function() { t.style.opacity = '0'; }, 2000);
+    }).catch(function() { prompt('Copiez ce lien :', url); });
+}
+
+function resetMap() {
     if (!confirm('Reinitialiser ?')) return;
     selectedAgent = null;
     GEOJSON_DATA.features.forEach(f => { f.properties.agent = INITIAL_STATE[f.properties.code]; });
@@ -158,6 +181,28 @@ function updateSidebar() {
 
 updateSidebar();
 
+function addAgent() {
+    const colors = ['#E6194B','#3CB44B','#FFE119','#4363D8','#F58231','#911EB4','#46F0F0','#F032E6','#BCF60C','#FABEBE','#008080','#E6BEFF','#AAFFC3','#FFD8B1','#808000','#000080','#DCBEFF','#A9A9A9','#800000','#469990'];
+    const num = AGENTS.length + 1;
+    const na = { name: 'Agent ' + num, color: colors[(num-1) % colors.length], potential: 0, depts: [] };
+    AGENTS.push(na);
+    AGENT_COLORS[na.name] = na.color;
+    updateSidebar();
+}
+
+function copyLink() {
+    var d = {};
+    GEOJSON_DATA.features.forEach(function(f) { d[f.properties.code] = f.properties.agent; });
+    var st = { a: AGENTS, d: d };
+    var url = window.location.origin + window.location.pathname + '#s=' + btoa(JSON.stringify(st));
+    var t = document.getElementById('toast');
+    navigator.clipboard.writeText(url).then(function() {
+        t.textContent = 'Lien copie !';
+        t.style.opacity = '1';
+        setTimeout(function() { t.style.opacity = '0'; }, 2000);
+    }).catch(function() { prompt('Copiez ce lien :', url); });
+}
+
 function resetMap() {
     if (!confirm('Reinitialiser la carte ?')) return;
     selectedAgent = null;
@@ -242,6 +287,28 @@ function copyLink() {
     }
     if (!lh()) ll();
 })();
+function addAgent() {
+    const colors = ['#E6194B','#3CB44B','#FFE119','#4363D8','#F58231','#911EB4','#46F0F0','#F032E6','#BCF60C','#FABEBE','#008080','#E6BEFF','#AAFFC3','#FFD8B1','#808000','#000080','#DCBEFF','#A9A9A9','#800000','#469990'];
+    const num = AGENTS.length + 1;
+    const na = { name: 'Agent ' + num, color: colors[(num-1) % colors.length], potential: 0, depts: [] };
+    AGENTS.push(na);
+    AGENT_COLORS[na.name] = na.color;
+    updateSidebar();
+}
+
+function copyLink() {
+    var d = {};
+    GEOJSON_DATA.features.forEach(function(f) { d[f.properties.code] = f.properties.agent; });
+    var st = { a: AGENTS, d: d };
+    var url = window.location.origin + window.location.pathname + '#s=' + btoa(JSON.stringify(st));
+    var t = document.getElementById('toast');
+    navigator.clipboard.writeText(url).then(function() {
+        t.textContent = 'Lien copie !';
+        t.style.opacity = '1';
+        setTimeout(function() { t.style.opacity = '0'; }, 2000);
+    }).catch(function() { prompt('Copiez ce lien :', url); });
+}
+
 function resetMap() {
     if (!confirm('Reinitialiser ?')) return;
     selectedAgent = null;
